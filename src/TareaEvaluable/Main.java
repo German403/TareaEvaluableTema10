@@ -12,17 +12,17 @@ public class Main {
     public static ArrayList<Empleado> empresa = new ArrayList<Empleado>();
     public static void ListaEmpleados(){
 
-        Empleado empleado1 = new Empleado("Juan", "Torres",	"01-01-1960",	"24-5-1980",	"Jefe",	60.000);
-        Empleado empleado2 = new Empleado("Sara", "Gonzalez", "02-05-1980", "03-06-1999", "Secretaria",	25.000);
-        Empleado empleado3 = new Empleado("Elena", "Sanchez", "03-09-1990","02-11-2010", "TecnicoFP", 30.000);
-        Empleado empleado4 = new Empleado("Pepe", "Uriel", "04-10-1991", "01-10-2015", "Administrativo", 24.000);
-        Empleado yo = new Empleado("German", "Escudero", "04-07-2024", "21-03-2024", "Programador", 20000);
+        Empleado empleado1 = new Empleado("Juan", "Torres",	LocalDate.parse("1960-01-01"),	LocalDate.parse("1980-05-25"),	"Jefe",	60.000);
+        Empleado empleado2 = new Empleado("Sara", "Gonzalez", LocalDate.parse("1980-05-02"), LocalDate.parse("1999-06-03"), "Secretaria",	25.000);
+        Empleado empleado3 = new Empleado("Elena", "Sanchez", LocalDate.parse("1990-09-03"),LocalDate.parse("2010-11-02"), "TecnicoFP", 30.000);
+        Empleado empleado4 = new Empleado("Pepe", "Uriel", LocalDate.parse("1991-10-04"), LocalDate.parse("2015-10-01"), "Administrativo", 24.000);
+        Empleado empleado5 = new Empleado("German", "Escudero", LocalDate.parse("2024-07-04"), LocalDate.parse("2024-03-21"), "Programador", 20000);
 
         empresa.add(empleado1);
         empresa.add(empleado2);
         empresa.add(empleado3);
         empresa.add(empleado4);
-        empresa.add(yo);
+        empresa.add(empleado5);
     }
 
     public static int menu() {
@@ -42,27 +42,41 @@ public class Main {
         System.out.println("Indique el nombre del nuevo empleado");
         String nombreTemp = scanner.nextLine();
         scanner.nextLine();
+
         //Introduce el apellido
         System.out.println("Indique el apellido del nuevo empleado");
         String apellidoTemp = scanner.nextLine();
         scanner.nextLine();
+
         //Introduce la fehca de nacimiento
         System.out.println("Indique la fecha de nacimiento del nuevo empleado");
-        String textoFechaNacTemp = scanner.nextLine();
-        scanner.nextLine();
-        LocalDate fechaNacimientoTemp = LocalDate.parse(textoFechaNacTemp);
+        System.out.println("Indique el dia de año de nacimiento");
+        int añoN = scanner.nextInt();
+        System.out.println("Indique el mes de nacimiento");
+        int mesN = scanner.nextInt();
+        System.out.println("Indique el dia de nacimiento");
+        int diaN = scanner.nextInt();
+        LocalDate fechaNacimientoTemp = LocalDate.of(añoN, mesN, diaN);
+
         //Introduce la fecha de ingreso
         System.out.println("Indique la fecha de ingreso del nuevo empleado");
-        String textoFechaIngTemp = scanner.nextLine();
-        scanner.nextLine();
-        LocalDate fechaIngresoTemp = LocalDate.parse(textoFechaIngTemp);
+        System.out.println("Indique el dia de año de ingreso");
+        int añoI = scanner.nextInt();
+        System.out.println("Indique el mes de ingreso");
+        int mesI = scanner.nextInt();
+        System.out.println("Indique el dia de ingreso");
+        int diaI = scanner.nextInt();
+        LocalDate fechaIngresoTemp = LocalDate.of(añoI, mesI, diaI);
+
         //Introduce el puesto
         System.out.println("Indique el puesto del nuevo empleado");
         String puestoTemp = scanner.nextLine();
         scanner.nextLine();
+
         //Introduce el salario
         System.out.println("Indique el salario del nuevo empleado");
         double salarioTemp = scanner.nextDouble();
+
         //Crea el nuevo empleado usando todas las variables anteriores
         Empleado empleadoTemp = new Empleado(nombreTemp, apellidoTemp, fechaNacimientoTemp, fechaIngresoTemp, puestoTemp, salarioTemp);
         empresa.add(empleadoTemp);
@@ -117,11 +131,11 @@ public class Main {
 
     }//Hay q acabarlo
 
-    public static void main(String[] args) {
-        ListaEmpleados();
+    public static void ejecucion(){
+        int opcion;
         do {
-            repetir = false;
-            switch (menu()){
+            opcion = menu();
+            switch (opcion){
                 case 1:
                     introducirEmpleado();
                     break;
@@ -139,13 +153,18 @@ public class Main {
                     break;
                 case 6:
                     System.out.println("Saliendo del programa...");
-                    repetir = true;
                     break;
                 default:
                     System.out.println("Opcion no valida");
                     break;
             }
-        }while (repetir);
+        }while (opcion!=6);
+    }
+
+    public static void main(String[] args) {
+        ListaEmpleados();
+        ejecucion();
+
 
     }
 }
