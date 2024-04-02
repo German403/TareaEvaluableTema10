@@ -1,21 +1,18 @@
 package TareaEvaluable;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
-    public static boolean repetir = false;
+    public static boolean repetir = false;//Variable que se usara para los bucles de las excepciones de los diferentes metodos del codigo
     public static ArrayList<Empleado> empresa = new ArrayList<Empleado>();
-    public static void ListaEmpleados(){
 
-        Empleado empleado1 = new Empleado("Juan", "Torres",	LocalDate.parse("1960-01-01"),	LocalDate.parse("1980-05-25"),	"Jefe",	60.000);
-        Empleado empleado2 = new Empleado("Sara", "Gonzalez", LocalDate.parse("1980-05-02"), LocalDate.parse("1999-06-03"), "Secretaria",	25.000);
-        Empleado empleado3 = new Empleado("Elena", "Sanchez", LocalDate.parse("1990-09-03"),LocalDate.parse("2010-11-02"), "TecnicoFP", 30.000);
-        Empleado empleado4 = new Empleado("Pepe", "Uriel", LocalDate.parse("1991-10-04"), LocalDate.parse("2015-10-01"), "Administrativo", 24.000);
+    public static void ListaEmpleados(){
+        Empleado empleado1 = new Empleado("Juan", "Torres", LocalDate.parse("1960-01-01"),	LocalDate.parse("1980-05-25"),	"Jefe",	60000);
+        Empleado empleado2 = new Empleado("Sara", "Gonzalez", LocalDate.parse("1980-05-02"), LocalDate.parse("1999-06-03"), "Secretaria",	25000);
+        Empleado empleado3 = new Empleado("Elena", "Sanchez", LocalDate.parse("1990-09-03"),LocalDate.parse("2010-11-02"), "TecnicoFP", 30000);
+        Empleado empleado4 = new Empleado("Pepe", "Uriel", LocalDate.parse("1991-10-04"), LocalDate.parse("2015-10-01"), "Administrativo", 24000);
         Empleado empleado5 = new Empleado("German", "Escudero", LocalDate.parse("2024-07-04"), LocalDate.parse("2024-03-21"), "Programador", 20000);
 
         empresa.add(empleado1);
@@ -23,7 +20,7 @@ public class Main {
         empresa.add(empleado3);
         empresa.add(empleado4);
         empresa.add(empleado5);
-    }
+    }//Terminado
 
     public static int menu() {
         System.out.println("Seleccione una de las siguientes opciones"+
@@ -35,18 +32,18 @@ public class Main {
                 "\nSeleccione 6 para salir del programa");
         int opcion = scanner.nextInt();
         return opcion;
-    }
+    }//Faltan excepciones
 
     public static void introducirEmpleado() {
+        scanner.nextLine();
         //Introduce el nombre
         System.out.println("Indique el nombre del nuevo empleado");
         String nombreTemp = scanner.nextLine();
-        scanner.nextLine();
 
         //Introduce el apellido
         System.out.println("Indique el apellido del nuevo empleado");
         String apellidoTemp = scanner.nextLine();
-        scanner.nextLine();
+
 
         //Introduce la fehca de nacimiento
         System.out.println("Indique la fecha de nacimiento del nuevo empleado");
@@ -68,10 +65,10 @@ public class Main {
         int diaI = scanner.nextInt();
         LocalDate fechaIngresoTemp = LocalDate.of(añoI, mesI, diaI);
 
+        scanner.nextLine();
         //Introduce el puesto
         System.out.println("Indique el puesto del nuevo empleado");
         String puestoTemp = scanner.nextLine();
-        scanner.nextLine();
 
         //Introduce el salario
         System.out.println("Indique el salario del nuevo empleado");
@@ -82,16 +79,27 @@ public class Main {
         empresa.add(empleadoTemp);
     }//Faltan excepciones
 
-    public static void eliminarEmpleado() {
-        System.out.println("Introduce el nombre o el apellido del empleado que desea despedir");
-        String eliminar = scanner.nextLine();
-        scanner.nextLine();
-        empresa.remove(eliminar);
-    }//Hay q acabarlo
+    public static void eliminarEmpleado(ArrayList<Empleado> empresa, String nombre) {
+        Iterator<Empleado> eliminar = empresa.iterator();
+        while (eliminar.hasNext()){
+            Empleado empleado = eliminar.next();
+            if (empleado.getNombre().equals(nombre)){
+                eliminar.remove();
+                return;
+            }//Fin if
+        }//Fin while
+        System.out.println("No se encontro ningun empleado con el nombre introducido");//En caso de no encontrarse al empleado se mostrara el mensaje de no encontrado
+    }//Terminado
 
-    public static void mostrarEmpleado() {
-
-    }//Hay q acabarlo
+    public static void mostrarEmpleado(ArrayList<Empleado> empresa, String nombre) {
+        for (Empleado empleado : empresa) {
+            if (empleado.getNombre().equals(nombre)) {
+                System.out.println(empleado);
+                return;
+            }//Fin if
+        }//Fin for
+        System.out.println("No se encontró ningún empleado con el nombre introducido");//En caso de no encontrarse al empleado se mostrara el mensaje de no encontrado
+    }//Terminado
 
     public static void mostrarEmpresa() {
         System.out.println("Seleccione una de las siguientes opciones"+
@@ -134,16 +142,29 @@ public class Main {
     public static void ejecucion(){
         int opcion;
         do {
+            System.out.println();
+            System.out.println("Los actuales empleados son: ");
+            int i = 1;
+            for (Empleado empresa : empresa){
+                System.out.println(i+"-"+empresa);
+                i++;
+            }
             opcion = menu();
             switch (opcion){
                 case 1:
                     introducirEmpleado();
                     break;
                 case 2:
-                    eliminarEmpleado();
+                    scanner.nextLine();
+                    System.out.println("Introduce el nombre del empleado que desea despedir");
+                    String eliminarE = scanner.nextLine();
+                    eliminarEmpleado(empresa, eliminarE);
                     break;
                 case 3:
-                    mostrarEmpleado();
+                    scanner.nextLine();
+                    System.out.println("Introduce el nombre del empleado del que desea ver sus datos");
+                    String mostrarE = scanner.nextLine();
+                    mostrarEmpleado(empresa, mostrarE);
                     break;
                 case 4:
                     mostrarEmpresa();
@@ -159,12 +180,10 @@ public class Main {
                     break;
             }
         }while (opcion!=6);
-    }
+    }//Faltan excepciones
 
     public static void main(String[] args) {
         ListaEmpleados();
         ejecucion();
-
-
-    }
+    }//Terminado
 }
