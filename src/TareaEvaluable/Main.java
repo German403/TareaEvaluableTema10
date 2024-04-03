@@ -28,7 +28,7 @@ public class Main {
                 "\nSeleccione 2 para eliminar un empleado"+
                 "\nSeleccione 3 para buscar un empleado y ver sus datos"+
                 "\nSeleccione 4 para ver los empleados bajo un orden"+
-                "\nSeleccione 5 para calcular el gasto total de los empleados empleado"+
+                "\nSeleccione 5 para calcular el gasto total de los empleados de la empresa"+
                 "\nSeleccione 6 para salir del programa");
         int opcion = scanner.nextInt();
         return opcion;
@@ -104,12 +104,12 @@ public class Main {
     public static void mostrarEmpresa() {
         System.out.println("Seleccione una de las siguientes opciones"+
                 "\nSeleccione 1 para ver los empleados ordenados por su antiguedad"+
-                "\nSeleccione 2 para ver los empleados ordenados por su salario"+
+                "\nSeleccione 2 para ver los empleados ordenados por su salario de menor a mayor"+
                 "\nSeleccione 3 para ver los empleados ordenados por su apellido");
         int opcionOrden = scanner.nextInt();
         switch (opcionOrden){
             case 1:
-                //Ordenacion de objetos por antiguedad (fecha de ingreso)
+                //Ordenacion de la lista de objetos por la antiguedad (fecha de ingreso)
                 Collections.sort(empresa, new Comparator<Empleado>() {
                     @Override
                     public int compare(Empleado a1, Empleado a2) {
@@ -118,10 +118,16 @@ public class Main {
                 });//Fin iterator
                 break;
             case 2:
-                //Ordenacion de objetos por salario
+                //Ordenacion de la lista de objetos por el salario
+                Collections.sort(empresa, new Comparator<Empleado>() {
+                    @Override
+                    public int compare(Empleado a1, Empleado a2) {
+                        return Double.compare(a1.getSalario(), a2.getSalario());
+                    }//Fin compare
+                });//Fin iterator
                 break;
-            case 3:
-                //Ordenacion de objetos por apellido
+            case 3://Terminado
+                //Ordenacion de la lista de objetos por el apellido
                 Collections.sort(empresa, new Comparator<Empleado>() {
                     @Override
                     public int compare(Empleado a1, Empleado a2) {
@@ -133,22 +139,22 @@ public class Main {
                 System.out.println("Opcion no valida");
                 break;
         }
-    }//Hay q acabarlo
+    }//Faltan excepciones
 
     public static void gastoTotal() {
-
-    }//Hay q acabarlo
+        double total = 0;
+        Iterator<Empleado> salarios = empresa.iterator();
+        while (salarios.hasNext()){
+            Empleado empleado = salarios.next();
+            total += empleado.getSalario();
+        }
+        System.out.println("El gasto total de todos los empleados de la empresa son "+total+"€");
+    }//Terminado
 
     public static void ejecucion(){
         int opcion;
         do {
             System.out.println();
-            System.out.println("Los actuales empleados son: ");
-            int i = 1;
-            for (Empleado empresa : empresa){
-                System.out.println(i+"-"+empresa);
-                i++;
-            }
             opcion = menu();
             switch (opcion){
                 case 1:
@@ -168,6 +174,11 @@ public class Main {
                     break;
                 case 4:
                     mostrarEmpresa();
+                    int j = 1;
+                    for (Empleado empresa : empresa){
+                        System.out.println(j+"-"+empresa);
+                        j++;
+                    }
                     break;
                 case 5:
                     gastoTotal();
