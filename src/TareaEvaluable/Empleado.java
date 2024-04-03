@@ -70,6 +70,6 @@ public class Empleado {
     //Metodos propios
     @Override
     public String toString(){
-        return "Empleado: "+nombre+apellidos+" nacido en "+fechaNacimiento+" llego a la empresa en "+fechaIngreso+" con puesto de "+puesto+" y salario de "+salario;
+        return nombre+" "+apellidos+" nacido en "+fechaNacimiento+" llego a la empresa en "+fechaIngreso+" con puesto de "+puesto+" y salario de "+salario+"€";
     }
 }
