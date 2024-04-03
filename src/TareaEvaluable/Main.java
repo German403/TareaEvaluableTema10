@@ -2,6 +2,7 @@ package TareaEvaluable;
 
 import java.time.LocalDate;
 import java.util.*;
+import javax.swing.JOptionPane;
 
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
@@ -23,56 +24,44 @@ public class Main {
     }//Terminado
 
     public static int menu() {
-        System.out.println("Seleccione una de las siguientes opciones"+
+        int opcion = Integer.parseInt(JOptionPane.showInputDialog("Seleccione una de las siguientes opciones"+
                 "\nSeleccione 1 para añadir un empleado"+
                 "\nSeleccione 2 para eliminar un empleado"+
                 "\nSeleccione 3 para buscar un empleado y ver sus datos"+
                 "\nSeleccione 4 para ver los empleados bajo un orden"+
                 "\nSeleccione 5 para calcular el gasto total de los empleados de la empresa"+
-                "\nSeleccione 6 para salir del programa");
-        int opcion = scanner.nextInt();
+                "\nSeleccione 6 para salir del programa"));
         return opcion;
     }//Faltan excepciones
 
     public static void introducirEmpleado() {
-        scanner.nextLine();
+
         //Introduce el nombre
-        System.out.println("Indique el nombre del nuevo empleado");
-        String nombreTemp = scanner.nextLine();
+        String nombreTemp = JOptionPane.showInputDialog("Indique el nombre del nuevo empleado");
 
         //Introduce el apellido
-        System.out.println("Indique el apellido del nuevo empleado");
-        String apellidoTemp = scanner.nextLine();
-
+        String apellidoTemp = JOptionPane.showInputDialog("Indique el apellido del nuevo empleado");
 
         //Introduce la fehca de nacimiento
-        System.out.println("Indique la fecha de nacimiento del nuevo empleado");
-        System.out.println("Indique el dia de año de nacimiento");
-        int añoN = scanner.nextInt();
-        System.out.println("Indique el mes de nacimiento");
-        int mesN = scanner.nextInt();
-        System.out.println("Indique el dia de nacimiento");
-        int diaN = scanner.nextInt();
+        int añoN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el año de nacimiento"));
+        int mesN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el mes de nacimiento"));
+        int diaN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el dia de nacimiento"));
         LocalDate fechaNacimientoTemp = LocalDate.of(añoN, mesN, diaN);
 
         //Introduce la fecha de ingreso
-        System.out.println("Indique la fecha de ingreso del nuevo empleado");
-        System.out.println("Indique el dia de año de ingreso");
-        int añoI = scanner.nextInt();
-        System.out.println("Indique el mes de ingreso");
-        int mesI = scanner.nextInt();
-        System.out.println("Indique el dia de ingreso");
-        int diaI = scanner.nextInt();
+        int añoI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el año de ingreso"));
+        int mesI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el mes de ingreso"));
+        int diaI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el dia de ingreso"));
         LocalDate fechaIngresoTemp = LocalDate.of(añoI, mesI, diaI);
 
-        scanner.nextLine();
         //Introduce el puesto
-        System.out.println("Indique el puesto del nuevo empleado");
-        String puestoTemp = scanner.nextLine();
+        String puestoTemp = JOptionPane.showInputDialog("Indique el puesto del nuevo empleado");
 
         //Introduce el salario
-        System.out.println("Indique el salario del nuevo empleado");
-        double salarioTemp = scanner.nextDouble();
+        double salarioTemp = Double.parseDouble(JOptionPane.showInputDialog("Indique el salario del nuevo empleado"));
+
+        //Se muestra el empleado recien creado
+        JOptionPane.showMessageDialog(null, "El nuevo empleado "+nombreTemp+" "+apellidoTemp+" nacido en "+fechaNacimientoTemp+" ha sido contratado en "+fechaIngresoTemp+" con puesto de "+puestoTemp+" y salario de "+salarioTemp+"€", "Datos del nuevo empleado contratado", 1);
 
         //Crea el nuevo empleado usando todas las variables anteriores
         Empleado empleadoTemp = new Empleado(nombreTemp, apellidoTemp, fechaNacimientoTemp, fechaIngresoTemp, puestoTemp, salarioTemp);
@@ -94,19 +83,19 @@ public class Main {
     public static void mostrarEmpleado(ArrayList<Empleado> empresa, String nombre) {
         for (Empleado empleado : empresa) {
             if (empleado.getNombre().equals(nombre)) {
-                System.out.println(empleado);
+                JOptionPane.showMessageDialog(null, empleado, "Datos del empleado", 1);
+                //System.out.println(empleado);
                 return;
             }//Fin if
         }//Fin for
-        System.out.println("No se encontró ningún empleado con el nombre introducido");//En caso de no encontrarse al empleado se mostrara el mensaje de no encontrado
+        JOptionPane.showMessageDialog(null, "No se encontró ningún empleado con el nombre introducido", "Error de busqueda", 0);//En caso de no encontrarse al empleado se mostrara el mensaje de no encontrado
     }//Terminado
 
     public static void mostrarEmpresa() {
-        System.out.println("Seleccione una de las siguientes opciones"+
+        int opcionOrden = Integer.parseInt(JOptionPane.showInputDialog("Seleccione una de las siguientes opciones"+
                 "\nSeleccione 1 para ver los empleados ordenados por su antiguedad"+
                 "\nSeleccione 2 para ver los empleados ordenados por su salario de menor a mayor"+
-                "\nSeleccione 3 para ver los empleados ordenados por su apellido");
-        int opcionOrden = scanner.nextInt();
+                "\nSeleccione 3 para ver los empleados ordenados por su apellido"));
         switch (opcionOrden){
             case 1:
                 //Ordenacion de la lista de objetos por la antiguedad (fecha de ingreso)
@@ -148,46 +137,44 @@ public class Main {
             Empleado empleado = salarios.next();
             total += empleado.getSalario();
         }
-        System.out.println("El gasto total de todos los empleados de la empresa son "+total+"€");
+        JOptionPane.showMessageDialog(null, "El gasto total de todos los empleados de la empresa es de "+total+"€", "Gastos de la empresa", 1);
     }//Terminado
 
     public static void ejecucion(){
         int opcion;
         do {
-            System.out.println();
             opcion = menu();
             switch (opcion){
                 case 1:
                     introducirEmpleado();
                     break;
                 case 2:
-                    scanner.nextLine();
-                    System.out.println("Introduce el nombre del empleado que desea despedir");
-                    String eliminarE = scanner.nextLine();
+                    String eliminarE = JOptionPane.showInputDialog("Introduce el nombre del empleado que desea despedir");
                     eliminarEmpleado(empresa, eliminarE);
                     break;
                 case 3:
-                    scanner.nextLine();
-                    System.out.println("Introduce el nombre del empleado del que desea ver sus datos");
-                    String mostrarE = scanner.nextLine();
+                    String mostrarE = JOptionPane.showInputDialog("Introduce el nombre del empleado del que desea ver sus datos");
                     mostrarEmpleado(empresa, mostrarE);
                     break;
                 case 4:
                     mostrarEmpresa();
                     int j = 1;
+                    String mostrar = "";
                     for (Empleado empresa : empresa){
-                        System.out.println(j+"-"+empresa);
+                        mostrar += j+"-"+empresa;
+                        mostrar += "\n";
                         j++;
                     }
+                    JOptionPane.showMessageDialog(null, mostrar, "Empleados de la empresa", 1);
                     break;
                 case 5:
                     gastoTotal();
                     break;
                 case 6:
-                    System.out.println("Saliendo del programa...");
+                    JOptionPane.showMessageDialog(null, "Saliendo del programa...", "Saliendo", 2);
                     break;
                 default:
-                    System.out.println("Opcion no valida");
+                    JOptionPane.showMessageDialog(null, "Intentelo de nuevo ingresando una de las acciones validas", "Accion no valida", 0);
                     break;
             }
         }while (opcion!=6);
