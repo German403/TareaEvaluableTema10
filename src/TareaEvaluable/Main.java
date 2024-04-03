@@ -24,41 +24,163 @@ public class Main {
     }//Terminado
 
     public static int menu() {
-        int opcion = Integer.parseInt(JOptionPane.showInputDialog("Seleccione una de las siguientes opciones"+
-                "\nSeleccione 1 para añadir un empleado"+
-                "\nSeleccione 2 para eliminar un empleado"+
-                "\nSeleccione 3 para buscar un empleado y ver sus datos"+
-                "\nSeleccione 4 para ver los empleados bajo un orden"+
-                "\nSeleccione 5 para calcular el gasto total de los empleados de la empresa"+
-                "\nSeleccione 6 para salir del programa"));
+        int opcion = 0;
+        do {
+            repetir = false;
+            try{
+                opcion = Integer.parseInt(JOptionPane.showInputDialog("Seleccione una de las siguientes opciones"+
+                        "\nSeleccione 1 para añadir un empleado"+
+                        "\nSeleccione 2 para eliminar un empleado"+
+                        "\nSeleccione 3 para buscar un empleado y ver sus datos"+
+                        "\nSeleccione 4 para ver los empleados bajo un orden"+
+                        "\nSeleccione 5 para calcular el gasto total de los empleados de la empresa"+
+                        "\nSeleccione 6 para salir del programa"));
+                if (opcion < 1 || opcion > 6){
+                    throw new IllegalAccessException();
+                }
+            }catch (NumberFormatException e1){
+                JOptionPane.showMessageDialog(null, "Valor no valido, error de formato", "Error de opcion", 0);
+                repetir = true;
+            }catch (IllegalAccessException e2){
+                JOptionPane.showMessageDialog(null, "Las opciones son de 1 a 6", "Error de opcion", 0 );
+                repetir = true;
+            }
+        }while(repetir);
         return opcion;
-    }//Faltan excepciones
+    }//Falta documentar
 
     public static void introducirEmpleado() {
-
+        String nombreTemp;
+        String apellidoTemp;
+        int añoN;
+        int mesN;
+        int diaN;
+        LocalDate fechaNacimientoTemp;
+        int añoI;
+        int mesI;
+        int diaI;
+        LocalDate fechaIngresoTemp;
+        String puestoTemp;
+        double salarioTemp;
         //Introduce el nombre
-        String nombreTemp = JOptionPane.showInputDialog("Indique el nombre del nuevo empleado");
+        do {
+            repetir = false;
+            try{
+                nombreTemp = JOptionPane.showInputDialog("Indique el nombre del nuevo empleado");
+            }catch (){
+
+                repetir = true;
+            }
+        }while(repetir);
 
         //Introduce el apellido
-        String apellidoTemp = JOptionPane.showInputDialog("Indique el apellido del nuevo empleado");
+        do {
+            repetir = false;
+            try{
+                apellidoTemp = JOptionPane.showInputDialog("Indique el apellido del nuevo empleado");
+            }catch (){
+
+                repetir = true;
+            }
+        }while(repetir);
 
         //Introduce la fehca de nacimiento
-        int añoN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el año de nacimiento"));
-        int mesN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el mes de nacimiento"));
-        int diaN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el dia de nacimiento"));
-        LocalDate fechaNacimientoTemp = LocalDate.of(añoN, mesN, diaN);
+        do {
+            repetir = false;
+            try{
+                añoN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el año de nacimiento"));
+            }catch (){
+
+                repetir = true;
+            }
+        }while(repetir);
+        do {
+            repetir = false;
+            try{
+                mesN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el mes de nacimiento"));
+            }catch (){
+
+                repetir = true;
+            }
+        }while(repetir);
+        do {
+            repetir = false;
+            try{
+                diaN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el dia de nacimiento"));
+            }catch (){
+
+                repetir = true;
+            }
+        }while(repetir);
+        do {
+            repetir = false;
+            try{
+                fechaNacimientoTemp = LocalDate.of(añoN, mesN, diaN);
+            }catch (){
+
+                repetir = true;
+            }
+        }while(repetir);
 
         //Introduce la fecha de ingreso
-        int añoI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el año de ingreso"));
-        int mesI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el mes de ingreso"));
-        int diaI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el dia de ingreso"));
-        LocalDate fechaIngresoTemp = LocalDate.of(añoI, mesI, diaI);
+        do {
+            repetir = false;
+            try{
+                añoI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el año de ingreso"));
+            }catch (){
+
+                repetir = true;
+            }
+        }while(repetir);
+        do {
+            repetir = false;
+            try{
+                mesI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el mes de ingreso"));
+            }catch (){
+
+                repetir = true;
+            }
+        }while(repetir);
+        do {
+            repetir = false;
+            try{
+                diaI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el dia de ingreso"));
+            }catch (){
+
+                repetir = true;
+            }
+        }while(repetir);
+        do {
+            repetir = false;
+            try{
+                fechaIngresoTemp = LocalDate.of(añoI, mesI, diaI);
+            }catch (){
+
+                repetir = true;
+            }
+        }while(repetir);
 
         //Introduce el puesto
-        String puestoTemp = JOptionPane.showInputDialog("Indique el puesto del nuevo empleado");
+        do {
+            repetir = false;
+            try{
+                puestoTemp = JOptionPane.showInputDialog("Indique el puesto del nuevo empleado");
+            }catch (){
+
+                repetir = true;
+            }
+        }while(repetir);
 
         //Introduce el salario
-        double salarioTemp = Double.parseDouble(JOptionPane.showInputDialog("Indique el salario del nuevo empleado"));
+        do {
+            repetir = false;
+            try{
+                salarioTemp = Double.parseDouble(JOptionPane.showInputDialog("Indique el salario del nuevo empleado"));
+            }catch (){
+
+                repetir = true;
+            }
+        }while(repetir);
 
         //Se muestra el empleado recien creado
         JOptionPane.showMessageDialog(null, "El nuevo empleado "+nombreTemp+" "+apellidoTemp+" nacido en "+fechaNacimientoTemp+" ha sido contratado en "+fechaIngresoTemp+" con puesto de "+puestoTemp+" y salario de "+salarioTemp+"€", "Datos del nuevo empleado contratado", 1);
@@ -92,10 +214,25 @@ public class Main {
     }//Terminado
 
     public static void mostrarEmpresa() {
-        int opcionOrden = Integer.parseInt(JOptionPane.showInputDialog("Seleccione una de las siguientes opciones"+
-                "\nSeleccione 1 para ver los empleados ordenados por su antiguedad"+
-                "\nSeleccione 2 para ver los empleados ordenados por su salario de menor a mayor"+
-                "\nSeleccione 3 para ver los empleados ordenados por su apellido"));
+        int opcionOrden = 0;
+        do {
+            repetir = false;
+            try{
+                opcionOrden = Integer.parseInt(JOptionPane.showInputDialog("Seleccione una de las siguientes opciones"+
+                        "\nSeleccione 1 para ver los empleados ordenados por su antiguedad"+
+                        "\nSeleccione 2 para ver los empleados ordenados por su salario de menor a mayor"+
+                        "\nSeleccione 3 para ver los empleados ordenados por su apellido"));
+                if (opcionOrden < 1 || opcionOrden > 3){
+                    throw new IllegalAccessException();
+                }
+            }catch (NumberFormatException e1){
+                JOptionPane.showMessageDialog(null, "Valor no valido, error de formato", "Error de opcion", 0);
+                repetir = true;
+            }catch (IllegalAccessException e2){
+                JOptionPane.showMessageDialog(null, "Las opciones son de 1 a 3", "Error de opcion", 0 );
+                repetir = true;
+            }
+        }while(repetir);
         switch (opcionOrden){
             case 1:
                 //Ordenacion de la lista de objetos por la antiguedad (fecha de ingreso)
@@ -124,11 +261,8 @@ public class Main {
                     }//Fin compare
                 });//Fin iterator
                 break;
-            default:
-                System.out.println("Opcion no valida");
-                break;
         }
-    }//Faltan excepciones
+    }//Falta documentar
 
     public static void gastoTotal() {
         double total = 0;
@@ -172,9 +306,6 @@ public class Main {
                     break;
                 case 6:
                     JOptionPane.showMessageDialog(null, "Saliendo del programa...", "Saliendo", 2);
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Intentelo de nuevo ingresando una de las acciones validas", "Accion no valida", 0);
                     break;
             }
         }while (opcion!=6);
