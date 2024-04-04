@@ -1,5 +1,6 @@
 package TareaEvaluable;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.*;
 import javax.swing.JOptionPane;
@@ -50,25 +51,25 @@ public class Main {
     }//Falta documentar
 
     public static void introducirEmpleado() {
-        String nombreTemp;
-        String apellidoTemp;
-        int añoN;
-        int mesN;
-        int diaN;
-        LocalDate fechaNacimientoTemp;
-        int añoI;
-        int mesI;
-        int diaI;
-        LocalDate fechaIngresoTemp;
-        String puestoTemp;
-        double salarioTemp;
+        String nombreTemp = "";
+        String apellidoTemp = "";
+        int añoN = 0;
+        int mesN = 0;
+        int diaN = 0;
+        LocalDate fechaNacimientoTemp = null;
+        int añoI = 0;
+        int mesI = 0;
+        int diaI = 0;
+        LocalDate fechaIngresoTemp = null;
+        String puestoTemp = "";
+        double salarioTemp = 0;
         //Introduce el nombre
         do {
             repetir = false;
             try{
                 nombreTemp = JOptionPane.showInputDialog("Indique el nombre del nuevo empleado");
-            }catch (){
-
+            }catch (InputMismatchException e1){
+                JOptionPane.showMessageDialog(null, "Solo se permiten caracteres de texto", "Error de formato", 0);
                 repetir = true;
             }
         }while(repetir);
@@ -78,95 +79,140 @@ public class Main {
             repetir = false;
             try{
                 apellidoTemp = JOptionPane.showInputDialog("Indique el apellido del nuevo empleado");
-            }catch (){
-
+            }catch (InputMismatchException e1){
+                JOptionPane.showMessageDialog(null, "Solo se permiten caracteres de texto", "Error de formato", 0);
                 repetir = true;
             }
         }while(repetir);
+
 
         //Introduce la fehca de nacimiento
-        do {
+        do{
             repetir = false;
-            try{
-                añoN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el año de nacimiento"));
-            }catch (){
-
-                repetir = true;
-            }
-        }while(repetir);
-        do {
-            repetir = false;
-            try{
-                mesN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el mes de nacimiento"));
-            }catch (){
-
-                repetir = true;
-            }
-        }while(repetir);
-        do {
-            repetir = false;
-            try{
-                diaN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el dia de nacimiento"));
-            }catch (){
-
-                repetir = true;
-            }
-        }while(repetir);
-        do {
-            repetir = false;
-            try{
-                fechaNacimientoTemp = LocalDate.of(añoN, mesN, diaN);
-            }catch (){
-
-                repetir = true;
-            }
+            do {
+                repetir = false;
+                try{
+                    añoN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el año de nacimiento"));
+                    if (añoN < 1950){
+                        throw new IllegalAccessException();
+                    }
+                }catch (NumberFormatException e1){
+                    JOptionPane.showMessageDialog(null, "Solo se permiten numeros enteros", "Error de formato", 0);
+                    repetir = true;
+                }catch (IllegalAccessException e2){
+                    JOptionPane.showMessageDialog(null, "La fecha debe ser posterior a 1950", "Error de feccha", 0);
+                    repetir = true;
+                }
+            }while(repetir);
+            do {
+                repetir = false;
+                try{
+                    mesN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el mes de nacimiento"));
+                    if (mesN < 01 || mesN > 12){
+                        throw new IllegalAccessException();
+                    }
+                }catch (NumberFormatException e1){
+                    JOptionPane.showMessageDialog(null, "Solo se permiten numeros enteros", "Error de formato", 0);
+                    repetir = true;
+                }catch (IllegalAccessException e2){
+                    JOptionPane.showMessageDialog(null, "Elige un mes de 1 a 12", "Error de fecha", 0);
+                    repetir = true;
+                }
+            }while(repetir);
+            do {
+                repetir = false;
+                try{
+                    diaN = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de nacimiento del nuevo empleado"+ "\nIndique el dia de nacimiento"));
+                    if (diaN < 01 || diaN > 31){
+                        throw new IllegalAccessException();
+                    }
+                }catch (NumberFormatException e1){
+                    JOptionPane.showMessageDialog(null, "Solo se permiten numeros enteros", "Error de formato", 0);
+                    repetir = true;
+                }catch (IllegalAccessException e2){
+                    JOptionPane.showMessageDialog(null, "Elige un dia de 1 a 31", "Error de fecha", 0);
+                    repetir = true;
+                }
+            }while(repetir);
+            do {
+                repetir = false;
+                try{
+                    fechaNacimientoTemp = LocalDate.of(añoN, mesN, diaN);
+                }catch (DateTimeException e1){
+                    JOptionPane.showMessageDialog(null, "Fecha no posible", "Error de fehca", 0);
+                    repetir = true;
+                }
+                break;
+            }while(repetir);
         }while(repetir);
 
         //Introduce la fecha de ingreso
         do {
             repetir = false;
-            try{
-                añoI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el año de ingreso"));
-            }catch (){
-
-                repetir = true;
-            }
-        }while(repetir);
-        do {
-            repetir = false;
-            try{
-                mesI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el mes de ingreso"));
-            }catch (){
-
-                repetir = true;
-            }
-        }while(repetir);
-        do {
-            repetir = false;
-            try{
-                diaI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el dia de ingreso"));
-            }catch (){
-
-                repetir = true;
-            }
-        }while(repetir);
-        do {
-            repetir = false;
-            try{
-                fechaIngresoTemp = LocalDate.of(añoI, mesI, diaI);
-            }catch (){
-
-                repetir = true;
-            }
-        }while(repetir);
+            do {
+                repetir = false;
+                try{
+                    añoI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el año de ingreso"));
+                    if (añoN < 1980){
+                        throw new IllegalAccessException();
+                    }
+                }catch (NumberFormatException e1){
+                    JOptionPane.showMessageDialog(null, "Solo se permiten numeros enteros", "Error de formato", 0);
+                    repetir = true;
+                }catch (IllegalAccessException e2){
+                    JOptionPane.showMessageDialog(null, "La fecha de contratacion debe ser posterior a 1980", "Error de fecha", 0);
+                    repetir = true;
+                }
+            }while(repetir);
+            do {
+                repetir = false;
+                try{
+                    mesI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el mes de ingreso"));
+                    if (mesI < 01 || mesI > 12){
+                        throw new IllegalAccessException();
+                    }
+                }catch (NumberFormatException e1){
+                    JOptionPane.showMessageDialog(null, "Solo se permiten numeros enteros", "Error de formato", 0);
+                    repetir = true;
+                }catch (IllegalAccessException e2){
+                    JOptionPane.showMessageDialog(null, "Elige un mes de 1 a 12", "Error de fecha", 0);
+                    repetir = true;
+                }
+            }while(repetir);
+            do {
+                repetir = false;
+                try{
+                    diaI = Integer.parseInt(JOptionPane.showInputDialog("Indique la fecha de ingreso del nuevo empleado"+ "\nIndique el dia de ingreso"));
+                    if (diaI < 01 || diaI > 31){
+                        throw new IllegalAccessException();
+                    }
+                }catch (NumberFormatException e1){
+                    JOptionPane.showMessageDialog(null, "Solo se permiten numeros enteros", "Error de formato", 0);
+                    repetir = true;
+                }catch (IllegalAccessException e2){
+                    JOptionPane.showMessageDialog(null, "Elige un dia de 1 a 31", "Error de fecha", 0);
+                    repetir = true;
+                }
+            }while(repetir);
+            do {
+                repetir = false;
+                try{
+                    fechaIngresoTemp = LocalDate.of(añoI, mesI, diaI);
+                }catch (DateTimeException e1){
+                    JOptionPane.showMessageDialog(null, "Fecha no posible", "Error de fehca", 0);
+                    repetir = true;
+                }
+                break;
+            }while(repetir);
+        }while (repetir);
 
         //Introduce el puesto
         do {
             repetir = false;
             try{
                 puestoTemp = JOptionPane.showInputDialog("Indique el puesto del nuevo empleado");
-            }catch (){
-
+            }catch (InputMismatchException e1){
+                JOptionPane.showMessageDialog(null, "Solo se permiten caracteres de texto", "Error de formato", 0);
                 repetir = true;
             }
         }while(repetir);
@@ -176,8 +222,8 @@ public class Main {
             repetir = false;
             try{
                 salarioTemp = Double.parseDouble(JOptionPane.showInputDialog("Indique el salario del nuevo empleado"));
-            }catch (){
-
+            }catch (NumberFormatException e1){
+                JOptionPane.showMessageDialog(null, "Solo se permiten numeros y decimales, recuerde que el decimal se usa con el '.'", "Error de formato", 0);
                 repetir = true;
             }
         }while(repetir);
@@ -283,11 +329,29 @@ public class Main {
                     introducirEmpleado();
                     break;
                 case 2:
-                    String eliminarE = JOptionPane.showInputDialog("Introduce el nombre del empleado que desea despedir");
+                    String eliminarE = "";
+                    do {
+                        repetir = false;
+                        try{
+                            eliminarE = JOptionPane.showInputDialog("Introduce el nombre del empleado que desea despedir");
+                        }catch (InputMismatchException e1){
+                            JOptionPane.showMessageDialog(null, "Solo se permiten caracteres de texto", "Error de formato", 0);
+                            repetir = true;
+                        }
+                    }while (repetir);
                     eliminarEmpleado(empresa, eliminarE);
                     break;
                 case 3:
-                    String mostrarE = JOptionPane.showInputDialog("Introduce el nombre del empleado del que desea ver sus datos");
+                    String mostrarE = "";
+                    do {
+                        repetir = false;
+                        try{
+                            mostrarE = JOptionPane.showInputDialog("Introduce el nombre del empleado del que desea ver sus datos");
+                        }catch (InputMismatchException e1){
+                            JOptionPane.showMessageDialog(null, "Solo se permiten caracteres de texto", "Error de formato", 0);
+                            repetir = true;
+                        }
+                    }while (repetir);
                     mostrarEmpleado(empresa, mostrarE);
                     break;
                 case 4:
