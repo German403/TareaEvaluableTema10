@@ -245,7 +245,7 @@ public class Main {
                 return;
             }//Fin if
         }//Fin while
-        System.out.println("No se encontro ningun empleado con el nombre introducido");//En caso de no encontrarse al empleado se mostrara el mensaje de no encontrado
+        JOptionPane.showMessageDialog(null, "No se encontró ningún empleado con el nombre introducido", "Error de busqueda", 0);//En caso de no encontrarse al empleado se mostrara el mensaje de no encontrado
     }//Terminado
 
     public static void mostrarEmpleado(ArrayList<Empleado> empresa, String nombre) {
