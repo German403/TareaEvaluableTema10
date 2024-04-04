@@ -5,11 +5,23 @@ import java.time.LocalDate;
 import java.util.*;
 import javax.swing.JOptionPane;
 
+/**
+ * @author German Escudero Rodriguez
+ * @version jdk-17
+ * 21/03/2024
+ * Este programa registra empleados de una empresa y los almacena en un ArrayList simulando una base de datos
+ * En el programa tambien se podran tratar esos datos como añadir nuevos empleados, eliminarlos o verlos mediante los diferentes metodos del programa
+ */
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
     public static boolean repetir = false;//Variable que se usara para los bucles de las excepciones de los diferentes metodos del codigo
     public static ArrayList<Empleado> empresa = new ArrayList<Empleado>();
 
+    /**
+     * Metodo donde se crean los objetos de los empleados que estaran en el ArrayList desde el principio y los añade a esta
+     * Primero crea los objetos de cada uno de los 5 empleados que deben existir desde el principio y fueron dados por el enunciado
+     * Luego los añade al ArrayList
+     */
     public static void ListaEmpleados(){
         Empleado empleado1 = new Empleado("Juan", "Torres", LocalDate.parse("1960-01-01"),	LocalDate.parse("1980-05-25"),	"Jefe",	60000);
         Empleado empleado2 = new Empleado("Sara", "Gonzalez", LocalDate.parse("1980-05-02"), LocalDate.parse("1999-06-03"), "Secretaria",	25000);
@@ -22,8 +34,15 @@ public class Main {
         empresa.add(empleado3);
         empresa.add(empleado4);
         empresa.add(empleado5);
-    }//Terminado
+    }//Fin metodo listaEmpleados
 
+    /**
+     * Metodo menu donde se detallan las opciones que da el codigo para manipular los datos
+     * Retonra la opcion elegida
+     * @return opcion
+     * @throws NumberFormatException excepcion para los casos en que se utilice un caracter diferente a un numero entero
+     * @throws IllegalAccessException excepcion personalizada para los casos en que el entero se menor a 1 o mayor a 6
+     */
     public static int menu() {
         int opcion = 0;
         do {
@@ -48,8 +67,18 @@ public class Main {
             }
         }while(repetir);
         return opcion;
-    }//Falta documentar
+    }//Fin metodo menu
 
+    /**
+     * Metodo para añadir un nuevo empleado al ArrayList
+     * En el se crearan unas variables temporales donde se les dara los valores correspondientes que introducira el usuario y luego se creara el objeto con esos valores
+     * Una vez creado el objeto se añadira al ArrayList en ultima posicion
+     * En el metodo se le asignara un sistema de excepciones que no permitira avanzar hasta que las condiciones sean correctas
+     * @throws InputMismatchException
+     * @throws NumberFormatException excepcion para los casos en que se utilice un caracter diferente a un numero entero
+     * @throws IllegalAccessException excepcion personalizada para los casos en que el entero este fuera del rango establecido
+     * @throws DateTimeException excepcion solo para las variables de tipo LocalDate que se activara en caso de que la fehca sea imposible
+     */
     public static void introducirEmpleado() {
         String nombreTemp = "";
         String apellidoTemp = "";
@@ -234,8 +263,13 @@ public class Main {
         //Crea el nuevo empleado usando todas las variables anteriores
         Empleado empleadoTemp = new Empleado(nombreTemp, apellidoTemp, fechaNacimientoTemp, fechaIngresoTemp, puestoTemp, salarioTemp);
         empresa.add(empleadoTemp);
-    }//Faltan excepciones
+    }//Fin metodo introducir empleado
 
+    /**
+     * Metododo que busca y compara los empleados existentes con el nombre dado y en caso de coincidencia lo borra del ArrayList
+     * @param empresa
+     * @param nombre
+     */
     public static void eliminarEmpleado(ArrayList<Empleado> empresa, String nombre) {
         Iterator<Empleado> eliminar = empresa.iterator();
         while (eliminar.hasNext()){
@@ -246,8 +280,13 @@ public class Main {
             }//Fin if
         }//Fin while
         JOptionPane.showMessageDialog(null, "No se encontró ningún empleado con el nombre introducido", "Error de busqueda", 0);//En caso de no encontrarse al empleado se mostrara el mensaje de no encontrado
-    }//Terminado
+    }//Fin metodo eliminarEmpleado
 
+    /**
+     * Metododo que busca y compara los empleados existentes con el nombre dado y en caso de coincidencia lo muestra en pantalla
+     * @param empresa
+     * @param nombre
+     */
     public static void mostrarEmpleado(ArrayList<Empleado> empresa, String nombre) {
         for (Empleado empleado : empresa) {
             if (empleado.getNombre().equals(nombre)) {
@@ -257,8 +296,14 @@ public class Main {
             }//Fin if
         }//Fin for
         JOptionPane.showMessageDialog(null, "No se encontró ningún empleado con el nombre introducido", "Error de busqueda", 0);//En caso de no encontrarse al empleado se mostrara el mensaje de no encontrado
-    }//Terminado
+    }//Fin metodo mostrarEmpleado
 
+    /**
+     * Metodo de ordencion del ArrayList de mediante diferentes preferencias segun el caso elegido
+     * Los empleados se ordenaran segun su antigÜedad en la empresa, segun su salario o segun su apellido mediante la comparacion de sus valores
+     * @throws NumberFormatException excepcion para los casos en que se utilice un caracter diferente a un numero entero
+     * @throws IllegalAccessException excepcion personalizada para los casos en que el entero se menor a 1 o mayor a 3
+     */
     public static void mostrarEmpresa() {
         int opcionOrden = 0;
         do {
@@ -308,18 +353,25 @@ public class Main {
                 });//Fin iterator
                 break;
         }
-    }//Falta documentar
+    }//Fin metodo mostrarEmpresa
 
+    /**
+     * Metodo que toma el valor del salario de todos los empleados y los suma devolviendo el valor total de la suma de todos los empleados del ArrayList
+     */
     public static void gastoTotal() {
         double total = 0;
         Iterator<Empleado> salarios = empresa.iterator();
         while (salarios.hasNext()){
             Empleado empleado = salarios.next();
             total += empleado.getSalario();
-        }
+        }//Fin while
         JOptionPane.showMessageDialog(null, "El gasto total de todos los empleados de la empresa es de "+total+"€", "Gastos de la empresa", 1);
-    }//Terminado
+    }//Fin metodo gastoTotal
 
+    /**
+     * Metodo donde se ejecutara la opcion segun la elegida en el metodo menu y este usara el metodo al que corresponda cada caso del switch
+     * @throws InputMismatchException
+     */
     public static void ejecucion(){
         int opcion;
         do {
@@ -371,12 +423,18 @@ public class Main {
                 case 6:
                     JOptionPane.showMessageDialog(null, "Saliendo del programa...", "Saliendo", 2);
                     break;
-            }
-        }while (opcion!=6);
-    }//Faltan excepciones
+            }//Fin switch
+        }while (opcion!=6);//Fin do-while
+    }//Fin metodo ejecucion
 
+    /**
+     * Metodo main del programa
+     * Se invoca el metodo ListaEmpleados que es en el cual se crearon los objetos y fueron añadidos al ArrayList para que la lista contenga datos desde el principio
+     * Se invoca el metodo ejecucion donde estan todas las opcion para la manipulacion de los datos
+     * @param args
+     */
     public static void main(String[] args) {
         ListaEmpleados();
         ejecucion();
-    }//Terminado
+    }//Fin main
 }
